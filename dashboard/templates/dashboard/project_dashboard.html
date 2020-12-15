@@ -1,0 +1,77 @@
+{%extends 'dashboard/main.html'%}
+{% block content%}
+{%include 'dashboard/navbar.html'%}
+<br>
+<br>
+<br>
+<br>
+<div class="container">
+    <div class ="row">
+        <div class="col-sm">
+            <h2>Create new subproject</h2>
+            <p>Buttons will appear pressed (with a darker background, darker border, and inset shadow) when active. 
+            </p>
+        </div>
+ 
+        <div class="col-sm">
+             <div class="form-inline">
+                 <form method="POST">
+                     {%csrf_token%}
+                     {{subproject_form.subproject_name}}
+                     {{subproject_form.number_of_scenes}}
+                     {{subproject_form.project_id}}
+                     <button class ="mt-2 btn btn-primary btn-lg btn-block">Create subproject</button>
+                 </form>
+             </div>
+         </div>
+     </div>
+<br>
+    <div class="row">
+        <table class="table table-bordered text-center">
+            <tr>
+                <th>Subproject</th>
+                <th>Number of tasks</th>
+                <th>Dashboard</th>
+            </tr>
+            {%for subproject in subprojects%}
+                <tr>
+                    <td>{{subproject.subproject_name}}</td>
+                    <td>{{subproject.number_of_scenes}}</td>
+                    <td><a href= "{%url 'subproject_dashboard' subproject.project_id.id subproject.id %}" class="btn btn-sm btn-dark">Dashboard</a></td>
+                </tr>
+            {%endfor%}
+        </table>
+    </div>
+
+    <br>
+    <div class="row">
+        <div class="col-sm text-center">
+            <h1>Status of [{{project_name}}] project</h1>
+        </div>
+       
+    </div>
+     {%include 'dashboard/project_charts.html'%}
+     <br>
+
+     <div class="row text-center">
+         <div class="col-sm">
+           <h4>Leader approved code</h4>
+           <h1>[{{project_leader_approved_text}}/{{project_number_of_scenes}}]</h1>
+         </div>
+         <div class="col-sm">
+           <h4>Leader approved images</h4>
+           <h1>[{{project_leader_approved_image}}/{{project_number_of_scenes}}]</h1>
+         </div>
+         <div class="col-sm">
+           <h4>Client approved code</h4>
+           <h1>[{{project_client_approved_text}}/{{project_number_of_scenes}}]</h1>
+         </div>
+         <div class="col-sm">
+           <h4>Client approved images</h4>
+           <h1>[{{project_client_approved_text}}/{{project_number_of_scenes}}]</h1>
+         </div>
+     </div>
+</div>
+
+
+{%endblock%}

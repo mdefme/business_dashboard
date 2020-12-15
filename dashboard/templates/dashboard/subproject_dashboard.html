@@ -1,0 +1,86 @@
+{%extends 'dashboard/main.html'%}
+{% block content%}
+{%include 'dashboard/navbar.html'%}
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+
+<br>
+<br>
+<br>
+<br>
+<div class="container">
+
+
+
+    <form action=""method="POST" enctype="multipart/form-data">
+    {%csrf_token%}
+    {{ formset.management_form }}
+        {%for scenes,formset in scenes_and_formset%}
+            <h4>{{scenes.scene_name}}</h4>
+            {{formset}}
+            <hr>
+    
+        {%endfor%}
+        <input type="submit" value="Submit">
+        <hr>
+    </form>
+
+
+
+
+          
+           
+                        
+    <br>
+    <div class="row">
+        <div class="col-sm text-center">
+            <h1>Status of [{{subproject_name}}] subproject</h1>
+            <h4>part of [{{project_name}}] project</h4>
+        </div>
+      
+    </div>
+    <br>
+    {%include 'dashboard/subproject_charts.html'%}
+    <br>
+    <div class="row text-center">
+        <div class="col-sm">
+          <h4>Leader approved text</h4>
+          <h1>[{{leader_approved_text}}/{{number_of_scenes}}]</h1>
+        </div>
+        <div class="col-sm">
+          <h4>Leader approved image</h4>
+          <h1>[{{leader_approved_image}}/{{number_of_scenes}}]</h1>
+        </div>
+        <div class="col-sm">
+          <h4>Client approved text</h4>
+          <h1>[{{client_approved_text}}/{{number_of_scenes}}]</h1>
+        </div>
+        <div class="col-sm">
+          <h4>Client approved image</h4>
+          <h1>[{{client_approved_image}}/{{number_of_scenes}}]</h1>
+        </div>
+    </div>
+
+</div>
+
+
+<br>
+<br>
+
+
+
+
+
+{%endblock%}
+
+
+
+
+
+
+
+
+
+
